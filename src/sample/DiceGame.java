@@ -28,6 +28,8 @@ public class DiceGame {
         winOrLose();
     }
 
+    // rolls a dice and display the number rolled
+    // lets the user choose whether the second number rolled is bigger or smaller
     public void startsRound(MouseEvent mouseEvent) {
         displayWinLose.setText("");
         firstDiceRoll = (int) (Math.random() * 6 + 1);
@@ -39,6 +41,8 @@ public class DiceGame {
         btnLow.setDisable(false);
     }
 
+    // determines whether the user picked the right guess
+    // if the user's balance is less than 0, ends the game
     public void winOrLose() {
         int secondDiceRoll = (int) (Math.random() * 6 + 1);
 
