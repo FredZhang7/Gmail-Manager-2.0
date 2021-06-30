@@ -11,7 +11,7 @@ public class EmailTest {
     Email testEmail;
 
     // I can't use JUnit to test JavaFX GUI, so I tested regular Java classes instead.
-    // I get java.lang.ExceptionInInitializerError for initializing a CheckBox!
+    // JUnit outputs "java.lang.ExceptionInInitializerError" for initializing a CheckBox!
 
     @Before
     public void setUp(){
@@ -19,6 +19,8 @@ public class EmailTest {
     }
 
     @Test
+    // checks Email class' toString() method
+    // if the toString output changes after an Email is read, then toString() works properly
     public void testToString() {
         assertEquals(testEmail.toString().substring(0, 6), "UNREAD");
         testEmail.setRead(true);
@@ -26,6 +28,7 @@ public class EmailTest {
     }
 
     @Test
+    // checks whether getters (accessor methods) and setters (mutator methods) work
     public void testGetters(){
         assertEquals("fred@gmail.com", testEmail.getRecipient());
         assertEquals("test", testEmail.getSubject());
@@ -39,6 +42,9 @@ public class EmailTest {
     }
 
     @Test
+    // checks whether Email class' writeToFile() method writes to a file in this order:
+    // recipient, subject, content, isRead, fontName, fontSize
+    // elements above are separated by a new line
     public void writeToFile() throws IOException{
         FileReader fr = new FileReader("Email Test.txt");
         BufferedReader br = new BufferedReader(fr);
