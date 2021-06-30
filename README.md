@@ -1,3 +1,3 @@
-# Gmail_Manager
+# Gmail Manager
 
-- This entire program was programmed using [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
+- This entire project was programmed using [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
