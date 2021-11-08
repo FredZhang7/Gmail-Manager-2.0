@@ -13,18 +13,19 @@ public class GmailReplyingToOutboxPopup {
     public VBox vBoxReplyEmailContent;
     public TextField textReplyEmailContent;
 
-    // completed => reviewed
     // this method interacts with the OutboxScene controller to 1st record the Email and 2nd add to the outbox
     public void sendOutboxReply(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("GmailOutboxScene.fxml"));
-        GmailOutboxScene controller = fxmlLoader.getController();
+        FXMLLoader outboxScene = new FXMLLoader(getClass().getResource("GmailOutboxScene.fxml"));
+        outboxScene.load();
+        GmailOutboxScene controller = outboxScene.getController();
         Email tempEmail = new Email(textReplyEmailReceiver.getText(), textReplyEmailSubject.getText(), textReplyEmailContent.getText(), true);
         tempEmail.writeToFile(controller.getCurrentGmail().getGoogleAccount().getUsername() + "'s outbox.txt");
-        controller.outboxData.add(tempEmail);
-        int tempInt = Integer.parseInt(controller.sentCount.getText()) + 1;
-        controller.sentCount.setText(tempInt + "");
-        controller.listOutboxEmails.setItems(controller.outboxData);
+        controller.getCurrentGmail().addToOutbox(tempEmail);
+
+        if (controller.getCurrentGmail().getGoogleAccount().getGmailAddress().equals(textReplyEmailReceiver.getText())) {
+            tempEmail.writeToFile(controller.getCurrentGmail().getGoogleAccount().getUsername() + "'s inbox.txt");
+            controller.getCurrentGmail().addToInbox(tempEmail);
+        }
         textReplyEmailReceiver.setText("");
         textReplyEmailSubject.setText("");
         textReplyEmailContent.clear();

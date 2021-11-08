@@ -47,7 +47,7 @@ public class GmailComposeEmailScene {
 
     // sends a draft email to the outbox. if the draft email's receiver is the user him/herself, then the method also sends the draft to the inbox.
     public void sendEmail(ActionEvent actionEvent) throws IOException {
-        String recipient = textGetEmailRecipient.getText().replaceAll("@gmail.com", ""), subject = textGetEmailSubject.getText(), content = textGetEmailContent.getText();
+        String recipient = textGetEmailRecipient.getText(), subject = textGetEmailSubject.getText(), content = textGetEmailContent.getText();
         if (recipient.equals("") || subject.equals("") || content.equals(""))
             return;
 
@@ -60,9 +60,9 @@ public class GmailComposeEmailScene {
         inboxScene.load();
         GmailInboxScene inboxController = inboxScene.getController();
 
-        File checkFile = new File(recipient + "'s inbox.txt");
+        File checkFile = new File(username + "'s inbox.txt");
 
-        if (recipient.equals(currentGmail.getGoogleAccount().getUsername())) {
+        if (recipient.equals(currentGmail.getGoogleAccount().getGmailAddress())) {
             newEmail.setRead(false);
             newEmail.writeToFile(username + "'s inbox.txt");
             inboxController.inboxData.add(newEmail);
@@ -130,5 +130,9 @@ public class GmailComposeEmailScene {
         resetFont();
         clearDraft();
         Main.setLatestGmailScene();
+    }
+
+    public void setFamily(ActionEvent actionEvent) {
+        textGetEmailContent.setFont(new Font(chooseFont.getValue(), textGetEmailContent.getFont().getSize()));
     }
 }

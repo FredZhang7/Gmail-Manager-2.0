@@ -18,7 +18,6 @@ public class GmailReadingInboxEmails {
     public VBox vBoxReadEmailContent;
     public TextArea textReadEmailContent = new TextArea();  // this isn't declared in any FXML file
 
-    // completed => reviewed
     // this method interacts with the ReplyingToInboxPopup controller to assign values to that controller's variables
     // this method replies to the inbox email popup
     public void replyToEmail(ActionEvent actionEvent) throws IOException {

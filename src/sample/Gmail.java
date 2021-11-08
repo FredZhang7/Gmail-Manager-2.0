@@ -72,8 +72,16 @@ public class Gmail {
         return inbox;
     }
 
+    public void addToInbox(Email email) {
+        inbox.add(email);
+    }
+
     public ArrayList<Email> getOutbox() {
         return outbox;
+    }
+
+    public void addToOutbox(Email email) {
+        outbox.add(email);
     }
 
     public ArrayList<Email> getDrafts() {

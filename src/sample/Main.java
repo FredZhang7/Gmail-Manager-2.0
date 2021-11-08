@@ -56,7 +56,6 @@ public class Main extends Application {
         return stage.getTitle();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }

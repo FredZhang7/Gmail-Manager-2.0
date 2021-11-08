@@ -21,20 +21,11 @@ public class GmailReplyingToInboxPopup {
         GmailOutboxScene controller = outboxScene.getController();
         Email tempEmail = new Email(textReplyEmailReceiver.getText(), textReplyEmailSubject.getText(), textReplyEmailContent.getText(), true);
         tempEmail.writeToFile(controller.getCurrentGmail().getGoogleAccount().getUsername() + "'s outbox.txt");
-        controller.outboxData.add(tempEmail);
-        int tempInt = Integer.parseInt(controller.sentCount.getText()) + 1;
-        controller.sentCount.setText(tempInt + "");
-        controller.listOutboxEmails.setItems(controller.outboxData);
+        controller.getCurrentGmail().addToOutbox(tempEmail);
 
-        FXMLLoader inboxScene = new FXMLLoader(getClass().getResource("GmailInboxScene.fxml"));
-        inboxScene.load();
-        GmailInboxScene inboxController = inboxScene.getController();
         if (controller.getCurrentGmail().getGoogleAccount().getGmailAddress().equals(textReplyEmailReceiver.getText())) {
             tempEmail.writeToFile(controller.getCurrentGmail().getGoogleAccount().getUsername() + "'s inbox.txt");
-            inboxController.inboxData.add(tempEmail);
-            tempInt = Integer.parseInt(inboxController.inboxCount.getText()) + 1;
-            inboxController.inboxCount.setText(tempInt + "");
-            inboxController.listInboxEmails.setItems(inboxController.inboxData);
+            controller.getCurrentGmail().addToInbox(tempEmail);
         }
         textReplyEmailReceiver.setText("");
         textReplyEmailSubject.setText("");

@@ -34,9 +34,9 @@ public class GmailOutboxScene implements Initializable {
         if (currentGmail == null)
             return;
 
-        outboxData.addAll(currentGmail.getOutbox());
-        selectEmails.setItems(emailSelectionOptions);
         selectEmails.setPromptText("Select Emails");
+        selectEmails.setItems(emailSelectionOptions);
+        outboxData.addAll(currentGmail.getOutbox());
         sentCount.setText(outboxData.size() + "");
         selectEmails.setCellFactory(lv -> {
             ListCell<String> cell = new ListCell<String>() {
@@ -176,8 +176,7 @@ public class GmailOutboxScene implements Initializable {
     // interacts with the ReadingOutboxEmails controller to assign values to that controller's variables
     // pops up the selected email in the outbox
     public void readSentEmail(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("GmailReadingOutboxEmails.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GmailReadingOutboxEmails.fxml"));
         Parent root = fxmlLoader.load();
         GmailReadingOutboxEmails controller = fxmlLoader.getController();
 

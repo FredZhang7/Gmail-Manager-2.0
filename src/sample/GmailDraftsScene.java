@@ -200,7 +200,6 @@ public class GmailDraftsScene implements Initializable {
             });
             return cell;
         });
-
         mainStage.setScene(new Scene(root));
     }
 

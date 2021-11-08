@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -47,16 +49,15 @@ public class GmailLoginPassword {
             labelIncorrectPassword.setOpacity(0);
             passwordFieldGoogleLogin.clear();
 
-            // the following is not needed because I created a new FXMLLoader with a new Inbox Controller (which makes InboxData initialized) at the bottom
-            /*  inboxController.inboxData.addAll(currentGmail.getInbox());
-                outboxController.outboxData.addAll(currentGmail.getOutbox());
-                draftsController.draftsData.addAll(currentGmail.getDrafts());
-                trashController.trashData.addAll(currentGmail.getTrash());
-             */
-
             inboxController.checkInbox(actionEvent);
         } else {
             labelIncorrectPassword.setOpacity(1);
+        }
+    }
+
+    public void validatePassword(KeyEvent keyEvent) throws IOException {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            loginPasswordComplete(new ActionEvent());
         }
     }
 }

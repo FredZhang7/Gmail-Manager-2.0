@@ -5,6 +5,8 @@ import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,9 +56,6 @@ public class GmailLoginEmail implements Initializable{
             int index = Main.getGoogleAccountList().indexOf(gmailAddress + temp);
             Gmail loginGmail = new Gmail(new GoogleAccount(Main.getGoogleAccountList().get(index).replaceAll("@gmail.com",""), Main.getGoogleAccountList().get(index + 1), Main.getGoogleAccountList().get(index + 2), Main.getGoogleAccountList().get(index + 3)), false);
 
-            // System.out.println("Inbox: " + loginGmail.getInbox());
-            // NO PROBLEM HERE!
-
             GmailComposeEmailScene.assignGmail(loginGmail);
             GmailInboxScene.assignGmail(loginGmail);
             GmailOutboxScene.assignGmail(loginGmail);
@@ -69,5 +68,11 @@ public class GmailLoginEmail implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    public void validateEmail(KeyEvent keyEvent) throws IOException {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            loginEmailComplete(new ActionEvent());
+        }
     }
 }

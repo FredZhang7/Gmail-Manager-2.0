@@ -15,7 +15,7 @@ public class GmailReadingOutboxEmails {
     public Label textReadEmailReceiver;
     public Label textReadEmailSubject;
     public VBox vBoxReadEmailContent;
-    public TextField textReadEmailContent;
+    public TextArea textReadEmailContent = new TextArea();
 
     // completed => reviewed
     // this method interacts with the ReplyingToOutboxPopup controller to assign values to that controller's variables
