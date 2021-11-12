@@ -202,6 +202,9 @@ public class GmailOutboxScene implements Initializable {
         controller.textReadEmailContent.setFont(new Font(selectedEmail.getFontName(), selectedEmail.getFontSize()));
         controller.vBoxReadEmailContent.getChildren().addAll(controller.textReadEmailContent);
 
+        FXMLLoader outboxScene = new FXMLLoader(getClass().getResource("GmailOutboxScene.fxml"));
+        mainStage.setScene(new Scene(outboxScene.load()));
+
         Stage popup = new Stage();
         popup.setScene(new Scene(root));
         popup.show();

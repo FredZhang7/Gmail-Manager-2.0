@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.*;
 
@@ -12,9 +13,16 @@ public class GmailReplyingToOutboxPopup {
     public Label textReplyEmailSubject;
     public VBox vBoxReplyEmailContent;
     public TextField textReplyEmailContent;
+    private static Stage mainStage;
+    public static void assignStage(Stage stage){
+        mainStage = stage;
+    }
 
     // this method interacts with the OutboxScene controller to 1st record the Email and 2nd add to the outbox
     public void sendOutboxReply(ActionEvent actionEvent) throws IOException {
+        textReplyEmailReceiver.setDisable(false);
+        textReplyEmailSubject.setDisable(false);
+        textReplyEmailContent.setDisable(false);
         FXMLLoader outboxScene = new FXMLLoader(getClass().getResource("GmailOutboxScene.fxml"));
         outboxScene.load();
         GmailOutboxScene controller = outboxScene.getController();
@@ -29,5 +37,8 @@ public class GmailReplyingToOutboxPopup {
         textReplyEmailReceiver.setText("");
         textReplyEmailSubject.setText("");
         textReplyEmailContent.clear();
+        textReplyEmailReceiver.setDisable(true);
+        textReplyEmailSubject.setDisable(true);
+        textReplyEmailContent.setDisable(true);
     }
 }

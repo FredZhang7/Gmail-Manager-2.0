@@ -217,14 +217,13 @@ public class GmailTrashScene implements Initializable {
             tempIndex++;
         }
 
-        trashCount.setText(trashData.size() + "");
-
         eraseInformationFromFile(username + "'s trash.txt");
 
         for (Email email : trashData)
             email.writeToFile(username + "'s trash.txt");
 
-        listTrashedEmails.setItems(trashData);
+        FXMLLoader trashLoader = new FXMLLoader(getClass().getResource("GmailTrashScene.fxml"));
+        mainStage.setScene(new Scene(trashLoader.load()));
     }
 
     // removes all selected emails from trash and trash .txt file

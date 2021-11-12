@@ -200,9 +200,9 @@ public class GmailInboxScene implements Initializable {
     // interacts with the ReadingInboxEmails controller to assign values to that controller's variables
     // pops up the selected email in the inbox
     public void readInboxEmail(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GmailReadingInboxEmails.fxml"));
-        Parent root = fxmlLoader.load();
-        GmailReadingInboxEmails controller = fxmlLoader.getController();
+        FXMLLoader readInbox = new FXMLLoader(getClass().getResource("GmailReadingInboxEmails.fxml"));
+        Parent root = readInbox.load();
+        GmailReadingInboxEmails controller = readInbox.getController();
 
         Email selectedEmail = listInboxEmails.getSelectionModel().getSelectedItem();
         if (selectedEmail == null)
@@ -225,6 +225,9 @@ public class GmailInboxScene implements Initializable {
         controller.textReadEmailContent.setText(selectedEmail.getContent());
         controller.textReadEmailContent.setFont(new Font(selectedEmail.getFontName(), selectedEmail.getFontSize()));
         controller.vBoxReadEmailContent.getChildren().addAll(controller.textReadEmailContent);
+
+        FXMLLoader inboxScene = new FXMLLoader(getClass().getResource("GmailInboxScene.fxml"));
+        mainStage.setScene(new Scene(inboxScene.load()));
 
         Stage popup = new Stage();
         popup.setScene(new Scene(root));

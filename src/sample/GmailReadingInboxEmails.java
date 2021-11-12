@@ -21,8 +21,7 @@ public class GmailReadingInboxEmails {
     // this method interacts with the ReplyingToInboxPopup controller to assign values to that controller's variables
     // this method replies to the inbox email popup
     public void replyToEmail(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("GmailReplyingToInboxPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GmailReplyingToInboxPopup.fxml"));
         Parent root = fxmlLoader.load();
         GmailReplyingToInboxPopup controller = fxmlLoader.getController();
 

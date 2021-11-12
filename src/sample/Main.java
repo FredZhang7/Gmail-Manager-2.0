@@ -22,6 +22,8 @@ public class Main extends Application {
         stage.setTitle("Login Gmail");
         stage.setScene(new Scene(root));
         stage.show();
+        GmailReplyingToInboxPopup.assignStage(stage);
+        GmailReplyingToOutboxPopup.assignStage(stage);
         GmailInboxScene.assignStage(stage);
         GmailOutboxScene.assignStage(stage);
         GmailDraftsScene.assignStage(stage);

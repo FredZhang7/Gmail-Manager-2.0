@@ -21,6 +21,7 @@ public class GmailReadingOutboxEmails {
     // this method interacts with the ReplyingToOutboxPopup controller to assign values to that controller's variables
     // this method replies to the outbox email popup
     public void replyToEmail(ActionEvent actionEvent) throws IOException {
+        textReadEmailContent.setDisable(true);
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("GmailReplyingToOutboxPopup.fxml"));
         Parent root = fxmlLoader.load();

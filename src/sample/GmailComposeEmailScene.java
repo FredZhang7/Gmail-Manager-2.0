@@ -60,7 +60,7 @@ public class GmailComposeEmailScene {
         inboxScene.load();
         GmailInboxScene inboxController = inboxScene.getController();
 
-        File checkFile = new File(username + "'s inbox.txt");
+        File checkFile = new File(recipient.replaceAll("@gmail.com","") + "'s inbox.txt");
 
         if (recipient.equals(currentGmail.getGoogleAccount().getGmailAddress())) {
             newEmail.setRead(false);
@@ -70,18 +70,12 @@ public class GmailComposeEmailScene {
             inboxController.listInboxEmails.setItems(inboxController.inboxData);
             inboxController.inboxCount.setText(inboxController.inboxData.size() + "");
         } else if (checkFile.exists()){
+            System.out.println("ComposeEmailScene line 73: worked");
             newEmail.writeToFile(checkFile.getPath());
         }
         newEmail.writeToFile(username + "'s outbox.txt");
 
-        FXMLLoader outboxScene = new FXMLLoader(getClass().getResource("GmailOutboxScene.fxml"));
-        outboxScene.load();
-        GmailOutboxScene outboxController = outboxScene.getController();
-
-        outboxController.outboxData.add(newEmail);
         currentGmail.getOutbox().add(newEmail);
-        outboxController.sentCount.setText(outboxController.outboxData.size() + "");
-        outboxController.listOutboxEmails.setItems(outboxController.outboxData);
 
         resetFont();
         clearDraft();
