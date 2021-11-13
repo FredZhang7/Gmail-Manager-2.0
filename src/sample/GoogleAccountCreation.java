@@ -107,7 +107,8 @@ public class GoogleAccountCreation {
             GmailOutboxScene.assignGmail(assignGmail);
             GmailDraftsScene.assignGmail(assignGmail);
             GmailTrashScene.assignGmail(assignGmail);
-
+            GmailReplyingToInboxPopup.assignGmail(assignGmail);
+            GmailReplyingToOutboxPopup.assignGmail(assignGmail);
             inboxController.checkInbox(actionEvent);
         }
     }

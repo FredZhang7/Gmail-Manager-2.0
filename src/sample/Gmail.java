@@ -21,11 +21,12 @@ public class Gmail {
             initializeInboxTextFiles("outbox");
             initializeInboxTextFiles("drafts");
             initializeInboxTextFiles("trash");
-            Email welcomeToGoogle = new Email("Google Community Team", googleAccount.getFirstName() + ", welcome to your new Google Account",
+            Email welcomeToGoogle = new Email(this.getGoogleAccount().getGmailAddress(), googleAccount.getFirstName() + ", welcome to your new Google Account",
                     "Hi " + googleAccount.getFirstName() + ",\n\nWelcome to Google. Your new account comes with access to Google products, apps, and services. Here are a few tips to get you started."
                             + "\n\n\nConfirm your options are right for you\nReview and change your privacy and security options to make Google work better for you."
                             + "\n\n\nStay in the know with the Google app.\nFind quick answers, explore your interests, and stay up to date!\n\n\nGoogle Community Team", false);
             welcomeToGoogle.writeToFile(getGoogleAccount().getUsername() + "'s inbox.txt");
+            welcomeToGoogle.setSender("Google Community Team");
             inbox.add(welcomeToGoogle);
         }
     }
@@ -45,8 +46,7 @@ public class Gmail {
         ArrayList<String> lines = new ArrayList<>();
         while ((line = br.readLine()) != null) {
             if (line.equals("======")) {
-                String recipient = lines.remove(0);
-                String subject = lines.remove(0);
+                String sender = lines.remove(0), recipient = lines.remove(0), subject = lines.remove(0);
                 int booleanIndex = Math.max(lines.lastIndexOf("true"), lines.lastIndexOf("false"));
                 boolean isRead = Boolean.parseBoolean(lines.remove(booleanIndex));
                 String fontFamily = lines.remove(booleanIndex);
@@ -61,6 +61,7 @@ public class Gmail {
                 Email tempEmail = new Email(recipient, subject, content, isRead);
                 tempEmail.setFontName(fontFamily);
                 tempEmail.setFontSize(fontSize);
+                tempEmail.setSender(sender);
                 emails.add(tempEmail);
                 lines.clear();
             } else

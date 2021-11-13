@@ -61,6 +61,8 @@ public class GmailLoginEmail implements Initializable{
             GmailOutboxScene.assignGmail(loginGmail);
             GmailDraftsScene.assignGmail(loginGmail);
             GmailTrashScene.assignGmail(loginGmail);
+            GmailReplyingToOutboxPopup.assignGmail(loginGmail);
+            GmailReplyingToInboxPopup.assignGmail(loginGmail);
         } else {
             labelEmailDoesNotExist.setOpacity(1);
         }

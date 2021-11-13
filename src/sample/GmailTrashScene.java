@@ -214,7 +214,8 @@ public class GmailTrashScene implements Initializable {
         while (tempIndex < trashData.size()) {
             if (trashData.get(tempIndex).isSelected())
                 currentGmail.getTrash().remove(trashData.remove(tempIndex));
-            tempIndex++;
+            else
+                tempIndex++;
         }
 
         eraseInformationFromFile(username + "'s trash.txt");
@@ -230,7 +231,6 @@ public class GmailTrashScene implements Initializable {
     // moves the removed emails to somewhere else in the user's Gmail
     public void moveEmail(ObservableList<Email> fromData, ObservableList<Email> toData, ListView<Email> fromListView, ListView<Email> toListView, String fromLocation, String toLocation, ArrayList<Email> fromArr, ArrayList<Email> toArr) throws IOException {
         int tempIndex = 0;
-
         while (tempIndex < fromData.size()) {
             Email tempEmail = fromData.get(tempIndex);
             if (tempEmail.isSelected()) {
@@ -249,17 +249,24 @@ public class GmailTrashScene implements Initializable {
             }
         }
 
-        fromListView.refresh();
-        toListView.refresh();
-        //fromListView.getItems().clear();
-        //fromListView.getItems().addAll(fromData);
-        //toListView.getItems().clear();
-        //toListView.getItems().addAll(toData);
-
         eraseInformationFromFile(username + "'s " + fromLocation + ".txt");
 
         for (Email email : fromData)
             email.writeToFile(username + "'s " + fromLocation + ".txt");
+
+        if (mainStage.getTitle().contains("Trash")) {
+            FXMLLoader trashScene = new FXMLLoader(getClass().getResource("GmailTrashScene.fxml"));
+            mainStage.setScene(new Scene(trashScene.load()));
+        } else if (mainStage.getTitle().contains("Inbox")) {
+            FXMLLoader inboxScene = new FXMLLoader(getClass().getResource("GmailInboxScene.fxml"));
+            mainStage.setScene(new Scene(inboxScene.load()));
+        } else if (mainStage.getTitle().contains("Drafts")) {
+            FXMLLoader draftsScene = new FXMLLoader(getClass().getResource("GmailDraftsScene.fxml"));
+            mainStage.setScene(new Scene(draftsScene.load()));
+        } else {
+            FXMLLoader outboxScene = new FXMLLoader(getClass().getResource("GmailOutboxScene.fxml"));
+            mainStage.setScene(new Scene(outboxScene.load()));
+        }
     }
 
     // clears everything in a file because the file needs to be updated

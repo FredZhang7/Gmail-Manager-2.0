@@ -169,8 +169,6 @@ public class GmailOutboxScene implements Initializable {
         fxmlLoader.load();
         GmailTrashScene trashController = fxmlLoader.getController();
         trashController.moveEmail(outboxData, trashController.trashData, listOutboxEmails, trashController.listTrashedEmails, "outbox", "trash", currentGmail.getOutbox(), currentGmail.getTrash());
-        sentCount.setText(outboxData.size() + "");
-        trashController.trashCount.setText(trashController.trashData.size() + "");
     }
 
     // interacts with the ReadingOutboxEmails controller to assign values to that controller's variables

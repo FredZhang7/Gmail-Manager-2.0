@@ -55,6 +55,7 @@ public class GmailComposeEmailScene {
         Email newEmail = new Email(recipient, subject, content, true);
         newEmail.setFontName(textGetEmailContent.getFont().getFamily());
         newEmail.setFontSize((int) textGetEmailContent.getFont().getSize());
+        newEmail.setSender(currentGmail.getGoogleAccount().getGmailAddress());
 
         FXMLLoader inboxScene = new FXMLLoader(getClass().getResource("GmailInboxScene.fxml"));
         inboxScene.load();
@@ -70,7 +71,6 @@ public class GmailComposeEmailScene {
             inboxController.listInboxEmails.setItems(inboxController.inboxData);
             inboxController.inboxCount.setText(inboxController.inboxData.size() + "");
         } else if (checkFile.exists()){
-            System.out.println("ComposeEmailScene line 73: worked");
             newEmail.writeToFile(checkFile.getPath());
         }
         newEmail.writeToFile(username + "'s outbox.txt");

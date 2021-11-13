@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Email {
-    private String recipient, subject, content, fontName = "System";
+    private String recipient, subject, content, fontName = "System", sender = "";
     private boolean isRead;
     private int fontSize = 13;
     private SimpleBooleanProperty isSelected = new SimpleBooleanProperty(false);
@@ -71,8 +71,12 @@ public class Email {
         return isSelected;
     }
 
+    public void setSender(String sender){ this.sender = sender; }
+
+    public String getSender(){ return sender; }
+
     public String toString() {
-        String result = ((recipient + "\t\t" + subject + " - " + content).replaceAll("\n", " "));
+        String result = ((sender + "\t\t" + subject + " - " + content).replaceAll("\n", " "));
         if (result.length() > 70)
             result = result.substring(0, 70);
         if (isRead)
@@ -83,7 +87,7 @@ public class Email {
     public void writeToFile(String fileName) throws IOException {
         FileWriter fw = new FileWriter(fileName, true);
         BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(recipient + "\n" + subject + "\n" + content + "\n");
+        bw.write(sender + "\n" + recipient + "\n" + subject + "\n" + content + "\n");
         bw.write(isRead + "\n" + fontName + "\n" + fontSize + "\n");
         bw.write("======\n");
         bw.flush();

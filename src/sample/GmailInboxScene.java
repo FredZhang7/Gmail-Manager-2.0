@@ -181,12 +181,10 @@ public class GmailInboxScene implements Initializable {
         if (!thereIs)
             return;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GmailTrashScene.fxml"));
-        fxmlLoader.load();
-        GmailTrashScene trashController = fxmlLoader.getController();
+        FXMLLoader trashScene = new FXMLLoader(getClass().getResource("GmailTrashScene.fxml"));
+        trashScene.load();
+        GmailTrashScene trashController = trashScene.getController();
         trashController.moveEmail(inboxData, trashController.trashData, listInboxEmails, trashController.listTrashedEmails, "inbox", "trash", currentGmail.getInbox(), currentGmail.getTrash());
-        inboxCount.setText(inboxData.size() + "");
-        trashController.trashCount.setText(trashController.trashData.size() + "");
     }
 
     // clears everything in a file because the file needs to be updated
@@ -219,7 +217,7 @@ public class GmailInboxScene implements Initializable {
         for (Email email : inboxData)
             email.writeToFile(fileName);
 
-        controller.textReadEmailSender.setText(selectedEmail.getRecipient());
+        controller.textReadEmailSender.setText(selectedEmail.getSender());
         controller.textReadEmailReceiver.setText(gmailAddress);
         controller.textReadEmailSubject.setText(selectedEmail.getSubject());
         controller.textReadEmailContent.setText(selectedEmail.getContent());

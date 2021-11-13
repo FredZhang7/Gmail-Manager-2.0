@@ -18,6 +18,10 @@ public class GmailReplyingToInboxPopup {
     public static void assignStage(Stage stage){
         mainStage = stage;
     }
+    private static Gmail currentGmail;
+    public static void assignGmail(Gmail gmail) {
+        currentGmail = gmail;
+    }
 
     // completed => reviewed
     // this method interacts with the OutboxScene controller to 1st record the Email, 2nd add to the outbox, and 3rd if the receiver is the sender, then add to the inbox
@@ -29,6 +33,7 @@ public class GmailReplyingToInboxPopup {
         outboxScene.load();
         GmailOutboxScene controller = outboxScene.getController();
         Email tempEmail = new Email(textReplyEmailReceiver.getText(), textReplyEmailSubject.getText(), textReplyEmailContent.getText(), true);
+        tempEmail.setSender(currentGmail.getGoogleAccount().getGmailAddress());
         tempEmail.writeToFile(controller.getCurrentGmail().getGoogleAccount().getUsername() + "'s outbox.txt");
         controller.getCurrentGmail().addToOutbox(tempEmail);
         if (controller.getCurrentGmail().getGoogleAccount().getGmailAddress().equals(textReplyEmailReceiver.getText())) {
